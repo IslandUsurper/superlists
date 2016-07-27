@@ -1,6 +1,6 @@
 [Unit]
 Description=Gunicorn service
-Requires=gunicorn.socket
+Requires=gunicorn-SITENAME.socket
 After=network.target
 
 [Service]
