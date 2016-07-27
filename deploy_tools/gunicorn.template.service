@@ -1,0 +1,17 @@
+[Unit]
+Description=Gunicorn service
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=lyle
+Group=lyle
+WorkingDirectory=/home/lyle/sites/SITENAME/source
+ExecStart=/home/lyle/sites/SITENAME/virtualenv/bin/gunicorn --pid /home/lyle/sites/SITENAME/pid superlists.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+Restart=on-failure
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
