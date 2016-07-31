@@ -28,7 +28,8 @@ class NewVisitorTest(FunctionalTest):
 
         # When she hits enter, the page updates, and now the page lists "1: Buy peacock
         # feathers" as an item in a to-do list.
-        inputbox.send_keys(Keys.ENTER)
+        with self.wait_for_page_load():
+            inputbox.send_keys(Keys.ENTER)
         edith_list_url = self.browser.current_url
         self.assertRegex(edith_list_url, '/lists/.+')
         self.check_for_row_in_list_table('1: Buy peacock feathers')
@@ -37,7 +38,8 @@ class NewVisitorTest(FunctionalTest):
         # peacock feathers to make a fly". (Edith is very methodical.)
         inputbox = self.get_item_input_box()
         inputbox.send_keys('Use peacock feathers to make a fly')
-        inputbox.send_keys(Keys.ENTER)
+        with self.wait_for_page_load():
+            inputbox.send_keys(Keys.ENTER)
 
         # The page updates again, and now shows both items on her list.
         self.check_for_row_in_list_table('1: Buy peacock feathers')
@@ -60,7 +62,8 @@ class NewVisitorTest(FunctionalTest):
         # interesting than Edith.
         inputbox = self.get_item_input_box()
         inputbox.send_keys('Buy milk')
-        inputbox.send_keys(Keys.ENTER)
+        with self.wait_for_page_load():
+            inputbox.send_keys(Keys.ENTER)
 
         # Francis gets his own unique URL.
         francis_list_url = self.browser.current_url

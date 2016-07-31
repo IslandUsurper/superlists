@@ -1,8 +1,11 @@
+from contextlib import contextmanager
 import sys
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 class FunctionalTest(StaticLiveServerTestCase):
 
@@ -37,3 +40,11 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def get_item_input_box(self):
         return self.browser.find_element_by_id('id_text')
+
+    @contextmanager
+    def wait_for_page_load(self, timeout=20):
+        old_page = self.browser.find_element_by_tag_name('html')
+        yield
+        WebDriverWait(self.browser, timeout).until(
+            EC.staleness_of(old_page)
+        )
