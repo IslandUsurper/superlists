@@ -54,7 +54,7 @@ class ItemValidationTest(FunctionalTest):
         # She sees a helpful error message.
         self.check_for_row_in_list_table('1: Buy wellies')
         error = self.get_error_element()
-        self.assert_equal(error.text, "You've already got this in your list.")
+        self.assertEqual(error.text, "You've already got this in your list.")
 
     @skip
     def test_error_messages_are_cleared_on_input(self):
