@@ -2,6 +2,7 @@ import sys
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 class FunctionalTest(StaticLiveServerTestCase):
 
@@ -20,7 +21,10 @@ class FunctionalTest(StaticLiveServerTestCase):
             super().tearDownClass()
 
     def setUp(self):
-        self.browser = webdriver.Firefox()
+        caps = DesiredCapabilities.FIREFOX
+        caps['marionette'] = True
+
+        self.browser = webdriver.Firefox(capabilities=caps)
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
