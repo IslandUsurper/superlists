@@ -7,7 +7,11 @@ After=network.target
 User=lyle
 Group=lyle
 WorkingDirectory=/home/lyle/sites/SITENAME/source
-ExecStart=/home/lyle/sites/SITENAME/virtualenv/bin/gunicorn --pid /home/lyle/sites/SITENAME/pid superlists.wsgi:application
+ExecStart=/home/lyle/sites/SITENAME/virtualenv/bin/gunicorn \
+    --pid /home/lyle/sites/SITENAME/pid \
+    --access-logfile ../access.log \
+    --error-logfile ../error.log \
+    superlists.wsgi:application
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStop=/bin/kill -s TERM $MAINPID
 Restart=on-failure
